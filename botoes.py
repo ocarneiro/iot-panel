@@ -1,19 +1,17 @@
 import urwid
 
-def show_or_exit(key):
-    if key in ('q', 'Q'):
-        raise urwid.ExitMainLoop()
-    txt.set_text(repr(key))
-
 def apertei(botao):
+    if botao.label == u"Sair!":
+        raise urwid.ExitMainLoop()
     txt.set_text(botao.label)
 
 txt = urwid.Text(u"Estou aqui!!")
-bt = urwid.AttrMap(urwid.Button(u"Olha pra mim!"),None)
-bt2 = urwid.Button(u"Unicode no cabeção!")
-pile = urwid.Pile([txt,bt2])
+bt = urwid.Button(u"Olha pra mim!", on_press=apertei)
+bt2 = urwid.Button(u"Unicode no cabeção!", on_press=apertei)
+bt3 = urwid.Button(u"Sair!", on_press=apertei)
+pile = urwid.Pile([txt,bt,bt2,bt3])
 fill = urwid.Filler(pile, "top")
-loop = urwid.MainLoop(fill, unhandled_input=show_or_exit)
+loop = urwid.MainLoop(fill)  # , unhandled_input=show_or_exit)
 loop.run()
 
 
